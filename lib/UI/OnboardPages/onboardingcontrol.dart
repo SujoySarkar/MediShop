@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:medishop/ResponsiveDesign/sizeconfig.dart';
 import 'package:medishop/UI/LoginScreen/loginpage.dart';
+import 'package:medishop/UI/allstring.dart';
 
 class OnBoardingPage extends StatefulWidget {
   @override
@@ -13,10 +13,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
   @override
   void initState() {
-    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Colors.green
-    ));
+
     super.initState();
   }
   final introKey = GlobalKey<IntroductionScreenState>();
@@ -57,40 +54,33 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
               PageViewModel(
                 title: "আপলোড প্রেসক্রিপশন",
                 body:
-                "Instead of having to buy an entire share, invest any amount you want.",
+                AllString.uploaddescription,
                 image: _buildImage("images/uploadprescription.jpg"),
                 decoration: pageDecoration,
               ),
               PageViewModel(
                 title: "হোম ডেলিভারী",
                 body:
-                "Download the Stockpile app and master the market with our mini-lesson.",
+                AllString.homedelivery,
                 image: _buildImage('images/homedelivery.jpg'),
                 decoration: pageDecoration,
               ),
               PageViewModel(
                 title: "অফার",
                 body:
-                "Kids and teens can track their stocks 24/7 and place trades that you approve.",
+                AllString.offer,
                 image: _buildImage('images/offer.jpg'),
                 decoration: pageDecoration,
               ),
               PageViewModel(
                 title: "মেডিসিন কালেকশন",
-                body: "Another beautiful body text for this example onboarding",
+                body: AllString.medicinecollection,
                 image: _buildImage('images/medicines.png'),
                 decoration: pageDecoration,
               ),
               PageViewModel(
                 title: "ক্যাশ অন ডেলিভারি",
-                bodyWidget: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text("Click on ", style: bodyStyle),
-                    Icon(Icons.edit),
-                    Text(" to edit a post", style: bodyStyle),
-                  ],
-                ),
+                body: AllString.cashondelivery,
                 image: _buildImage('images/cashondelivery.png'),
                 decoration: pageDecoration,
               ),

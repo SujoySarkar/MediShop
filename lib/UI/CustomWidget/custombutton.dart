@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medishop/ResponsiveDesign/sizeconfig.dart';
 
-Widget CustomButton(String centertext){
+Widget CustomButton(String centertext, Function onPressed){
   return  Container(
       height: SizeConfig.screenheight*0.055,
       width: SizeConfig.screenwidth,
@@ -14,9 +14,7 @@ Widget CustomButton(String centertext){
         borderRadius: BorderRadius.all(Radius.circular(5)),
           color: Colors.green,
           child: InkWell(
-            onTap: () {
-
-            },
+            onTap: onPressed,
             splashColor: Colors.white,
             child: Center(
               child: Text(
