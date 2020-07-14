@@ -13,7 +13,7 @@ class BottomNavController extends StatefulWidget {
 
 class _BottomNavControllerState extends State<BottomNavController> {
   int index = 0;
-  final _pages =[
+  final _pages = [
     HomePage(),
     OrderByCallPage(),
     UploadPrescription(),
@@ -24,7 +24,7 @@ class _BottomNavControllerState extends State<BottomNavController> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
-        height: MediaQuery.of(context).size.height/13,
+        height: MediaQuery.of(context).size.height / 13,
         index: 0,
         color: Colors.pink,
         buttonBackgroundColor: Colors.pink,
@@ -32,15 +32,30 @@ class _BottomNavControllerState extends State<BottomNavController> {
         animationCurve: Curves.easeInOut,
         animationDuration: Duration(milliseconds: 500),
         items: [
-          Icon(Icons.home,color: Colors.white,),
-          Icon(Icons.call,color: Colors.white,),
-          Icon(Icons.add,color: Colors.white,),
-          Icon(Icons.add_comment,color: Colors.white,),
-          Icon(Icons.help,color: Colors.white,),
+          Icon(
+            Icons.home,
+            color: Colors.white,
+          ),
+          Icon(
+            Icons.call,
+            color: Colors.white,
+          ),
+          Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+          Icon(
+            Icons.add_comment,
+            color: Colors.white,
+          ),
+          Icon(
+            Icons.help,
+            color: Colors.white,
+          ),
         ],
-        onTap: (value){
+        onTap: (value) {
           setState(() {
-            index=value;
+            index = value;
           });
         },
       ),
