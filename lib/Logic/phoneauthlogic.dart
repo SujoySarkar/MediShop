@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:medishop/UI/Dashboard/home.dart';
+import 'package:medishop/UI/BottomNav/bottomnavcontroller.dart';
+
 
 class LoginwithPhone extends ChangeNotifier {
   final countrycode = "+880";
@@ -18,7 +19,7 @@ class LoginwithPhone extends ChangeNotifier {
 
           if (user != null) {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Home()));
+                context, MaterialPageRoute(builder: (context) => BottomNavController()));
           } else {
             print("Error");
           }
@@ -61,7 +62,7 @@ class LoginwithPhone extends ChangeNotifier {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Home()));
+                                      builder: (context) => BottomNavController()));
                             }
                           },
                         ),
@@ -97,7 +98,7 @@ class LoginwithPhone extends ChangeNotifier {
                       actions: <Widget>[
                         RaisedButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>Home()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavController()));
                           },
                           child: Text("Skip for now"),
                         )

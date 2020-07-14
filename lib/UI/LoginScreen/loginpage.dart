@@ -10,7 +10,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   final TextEditingController phonenumber = TextEditingController();
 
   @override
@@ -120,9 +119,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: Colors.green,
                   child: InkWell(
                     onTap: () {
-                      final phone =
-                      phonenumber.text.trim();
-                      Provider.of<LoginwithPhone>(context,listen: false).loginUser(phone, context);
+                      final phone = phonenumber.text.trim();
+                      Provider.of<LoginwithPhone>(context, listen: false)
+                          .loginUser(phone, context);
                     },
                     splashColor: Colors.white,
                     child: Center(
