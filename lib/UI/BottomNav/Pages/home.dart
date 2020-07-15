@@ -6,6 +6,9 @@ import 'package:flutter_carousel_slider/carousel_slider_indicators.dart';
 import 'package:flutter_carousel_slider/carousel_slider_transforms.dart';
 import 'package:medishop/ResponsiveDesign/sizeconfig.dart';
 import 'package:medishop/UI/CustomWidgets/customItem.dart';
+import 'package:medishop/UI/CustomWidgets/fetchcategory.dart';
+import 'package:medishop/UI/CustomWidgets/textwidget.dart';
+import 'package:medishop/UI/SeeAll/categoryone.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -13,7 +16,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   Future getimgforCarousel() async {
     var firestore = Firestore.instance;
     QuerySnapshot qn =
@@ -24,6 +26,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     getimgforCarousel();
+
     super.initState();
   }
 
@@ -34,8 +37,6 @@ class _HomePageState extends State<HomePage> {
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
-
-
             children: <Widget>[
               Container(
                 height: SizeConfig.screenheight / 5,
@@ -54,9 +55,9 @@ class _HomePageState extends State<HomePage> {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.only(
                                     bottomLeft: Radius.circular(
-                                        SizeConfig.screenwidth * 0.08),
+                                        SizeConfig.screenwidth * 0.06),
                                     bottomRight: Radius.circular(
-                                        SizeConfig.screenwidth * 0.08)),
+                                        SizeConfig.screenwidth * 0.06)),
                                 child: Image.network(
                                   sliderimages['img'],
                                   fit: BoxFit.cover,
@@ -89,49 +90,123 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(SizeConfig.screenwidth*0.03),
+                padding: EdgeInsets.all(SizeConfig.screenwidth * 0.03),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     FittedBox(
                       child: SingleChildScrollView(
-
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             CustomItem(
-                                SizeConfig.screenwidth * 0.2,
-                                SizeConfig.screenwidth * 0.35,
-                                Icons.add,
-                                "Uplooad Prescription",
-                                () {},),
+                              SizeConfig.screenwidth * 0.2,
+                              SizeConfig.screenwidth * 0.35,
+                              Icons.add_circle,
+                              "Uplooad Prescription",
+                              () {},
+                            ),
+                            SizedBox(
+                              width: SizeConfig.screenwidth * 0.015,
+                            ),
                             CustomItem(
-                                SizeConfig.screenwidth * 0.2,
-                                SizeConfig.screenwidth * 0.35,
-                                Icons.call,
-                                "Order By Call",
-                                () {},),
+                              SizeConfig.screenwidth * 0.2,
+                              SizeConfig.screenwidth * 0.35,
+                              Icons.phone_in_talk,
+                              "Order By Call",
+                              () {},
+                            ),
+                            SizedBox(
+                              width: SizeConfig.screenwidth * 0.015,
+                            ),
                             CustomItem(
-                                SizeConfig.screenwidth * 0.2,
-                                SizeConfig.screenwidth * 0.35,
-                                Icons.add_comment,
-                                "Request Medicine",
-                                () {},),
+                              SizeConfig.screenwidth * 0.2,
+                              SizeConfig.screenwidth * 0.35,
+                              Icons.add_comment,
+                              "HealthCare Products",
+                              () {},
+                            ),
                           ],
                         ),
                       ),
                     ),
-                    SizedBox(height: SizeConfig.screenwidth*0.03,),
-                    Text("Categories",style: TextStyle(fontWeight: FontWeight.bold,fontSize: SizeConfig.screenwidth*0.04),),
-                    SizedBox(height: SizeConfig.screenwidth*0.03,),
-
+                    SizedBox(
+                      height: SizeConfig.screenwidth * 0.04,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        FetchCategoryName(context, "0"),
+                        SeeAllTextWidget(() {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CategoryOne()));
+                        }),
+                      ],
+                    ),
+                    SizedBox(
+                      height: SizeConfig.screenwidth * 0.03,
+                    ),
+                    Container(
+                      height: SizeConfig.screenheight / 6,
+                      width: SizeConfig.screenwidth,
+                      child: StreamBuilder(
+                        stream: Firestore.instance
+                            .collection("Category-one")
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: snapshot.data.documents.length,
+                              itemBuilder: (context, index) {
+                                DocumentSnapshot data =
+                                    snapshot.data.documents[index];
+                                return Card(
+                                  elevation: 2,
+                                  child: Container(
+                                    width: SizeConfig.screenwidth / 3,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: Colors.green, width: 0.5),
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Container(
+                                            height: SizeConfig.screenwidth / 6,
+                                            width: SizeConfig.screenwidth / 4,
+                                            child: Image.network(
+                                              data["Product-image"],
+                                              fit: BoxFit.cover,
+                                            )),
+                                        Text(
+                                          data["Product-name"],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          } else if (snapshot.hasError) {
+                            return Center(
+                                child: CircularProgressIndicator(
+                              backgroundColor: Colors.orange,
+                            ));
+                          }
+                          return Center(
+                              child: CircularProgressIndicator(
+                            backgroundColor: Colors.orange,
+                          ));
+                        },
+                      ),
+                    ),
                   ],
                 ),
               ),
-
-
-
-
             ],
           ),
         ),

@@ -37,11 +37,11 @@ class _BottomNavControllerState extends State<BottomNavController> {
             color: Colors.white,
           ),
           Icon(
-            Icons.call,
+            Icons.phone_in_talk,
             color: Colors.white,
           ),
           Icon(
-            Icons.add,
+            Icons.add_circle,
             color: Colors.white,
           ),
           Icon(

@@ -30,12 +30,8 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     SystemChrome.setEnabledSystemUIOverlays([]);
-//    new Timer(new Duration(seconds: 3), () {
-////      checkFirstSeen();
-////    });
     new Timer(new Duration(seconds: 3), () {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => OnBoardingPage()));
+      checkFirstSeen();
     });
 
     super.initState();
