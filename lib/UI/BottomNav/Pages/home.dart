@@ -149,7 +149,7 @@ class _HomePageState extends State<HomePage> {
                       height: SizeConfig.screenwidth * 0.03,
                     ),
                     Container(
-                      height: SizeConfig.screenheight / 6,
+                      height: SizeConfig.screenheight / 5,
                       width: SizeConfig.screenwidth,
                       child: StreamBuilder(
                         stream: Firestore.instance
@@ -171,27 +171,74 @@ class _HomePageState extends State<HomePage> {
                                       border: Border.all(
                                           color: Colors.green, width: 0.5),
                                     ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Container(
-                                            height: SizeConfig.screenwidth / 6,
-                                            width: SizeConfig.screenwidth / 4,
-                                            child: Image.network(
-                                              data["Product-image"],
-                                              fit: BoxFit.cover,
-                                            )),
-                                        Text(
-                                          data["Product-name"],
-                                        ),
-                                      ],
+                                    child: Padding(
+                                      padding: EdgeInsets.all(
+                                          SizeConfig.screenwidth * 0.009),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: <Widget>[
+                                          Center(
+                                            child: Container(
+                                                height:
+                                                    SizeConfig.screenwidth / 5,
+                                                width:
+                                                    SizeConfig.screenwidth / 4,
+                                                child: Image.network(
+                                                  data["Product-image"],
+                                                  fit: BoxFit.cover,
+                                                )),
+                                          ),
+                                          Text(
+                                            data["Product-name"],
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontSize: SizeConfig.screenwidth *
+                                                  0.038,
+                                            ),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Text(
+                                                "\৳${data["previous-price"]}",
+                                                style: TextStyle(
+                                                    decoration: TextDecoration
+                                                        .lineThrough,
+                                                    fontSize:
+                                                        SizeConfig.screenwidth *
+                                                            0.03),
+                                              ),
+                                              Text(
+                                                data["offer"],
+                                                style: TextStyle(
+                                                    color: Colors.red,
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize:
+                                                        SizeConfig.screenwidth *
+                                                            0.03),
+                                              ),
+                                            ],
+                                          ),
+                                          Text(
+                                            "\৳${data["after-offer-price"]}",
+                                            style: TextStyle(
+                                                fontSize:
+                                                    SizeConfig.screenwidth *
+                                                        0.04),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 );
                               },
                             );
-                          } else if (snapshot.hasError) {
+                          }
+                          else if (snapshot.hasError) {
                             return Center(
                                 child: CircularProgressIndicator(
                               backgroundColor: Colors.orange,
