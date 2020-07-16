@@ -45,7 +45,7 @@ class _BottomNavControllerState extends State<BottomNavController> {
             color: Colors.white,
           ),
           Icon(
-            Icons.add_comment,
+            Icons.shopping_cart,
             color: Colors.white,
           ),
           Icon(

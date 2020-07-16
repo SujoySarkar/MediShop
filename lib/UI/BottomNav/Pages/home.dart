@@ -7,8 +7,11 @@ import 'package:flutter_carousel_slider/carousel_slider_transforms.dart';
 import 'package:medishop/ResponsiveDesign/sizeconfig.dart';
 import 'package:medishop/UI/CustomWidgets/customItem.dart';
 import 'package:medishop/UI/CustomWidgets/fetchcategory.dart';
+import 'package:medishop/UI/CustomWidgets/productlisthorizontal.dart';
 import 'package:medishop/UI/CustomWidgets/textwidget.dart';
 import 'package:medishop/UI/SeeAll/categoryone.dart';
+import 'package:medishop/UI/SeeAll/categorythree.dart';
+import 'package:medishop/UI/SeeAll/categorytwo.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -145,112 +148,40 @@ class _HomePageState extends State<HomePage> {
                         }),
                       ],
                     ),
+                    HorizontalProductsList("Category-one"),
                     SizedBox(
-                      height: SizeConfig.screenwidth * 0.03,
+                      height: SizeConfig.screenwidth * 0.04,
                     ),
-                    Container(
-                      height: SizeConfig.screenheight / 5,
-                      width: SizeConfig.screenwidth,
-                      child: StreamBuilder(
-                        stream: Firestore.instance
-                            .collection("Category-one")
-                            .snapshots(),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            return ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: snapshot.data.documents.length,
-                              itemBuilder: (context, index) {
-                                DocumentSnapshot data =
-                                    snapshot.data.documents[index];
-                                return Card(
-                                  elevation: 2,
-                                  child: Container(
-                                    width: SizeConfig.screenwidth / 3,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: Colors.green, width: 0.5),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(
-                                          SizeConfig.screenwidth * 0.009),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: <Widget>[
-                                          Center(
-                                            child: Container(
-                                                height:
-                                                    SizeConfig.screenwidth / 5,
-                                                width:
-                                                    SizeConfig.screenwidth / 4,
-                                                child: Image.network(
-                                                  data["Product-image"],
-                                                  fit: BoxFit.cover,
-                                                )),
-                                          ),
-                                          Text(
-                                            data["Product-name"],
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              fontSize: SizeConfig.screenwidth *
-                                                  0.038,
-                                            ),
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: <Widget>[
-                                              Text(
-                                                "\৳${data["previous-price"]}",
-                                                style: TextStyle(
-                                                    decoration: TextDecoration
-                                                        .lineThrough,
-                                                    fontSize:
-                                                        SizeConfig.screenwidth *
-                                                            0.03),
-                                              ),
-                                              Text(
-                                                data["offer"],
-                                                style: TextStyle(
-                                                    color: Colors.red,
-                                                    fontWeight: FontWeight.w400,
-                                                    fontSize:
-                                                        SizeConfig.screenwidth *
-                                                            0.03),
-                                              ),
-                                            ],
-                                          ),
-                                          Text(
-                                            "\৳${data["after-offer-price"]}",
-                                            style: TextStyle(
-                                                fontSize:
-                                                    SizeConfig.screenwidth *
-                                                        0.04),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
-                          }
-                          else if (snapshot.hasError) {
-                            return Center(
-                                child: CircularProgressIndicator(
-                              backgroundColor: Colors.orange,
-                            ));
-                          }
-                          return Center(
-                              child: CircularProgressIndicator(
-                            backgroundColor: Colors.orange,
-                          ));
-                        },
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        FetchCategoryName(context, "1"),
+                        SeeAllTextWidget(() {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CategoryTwo()));
+                        }),
+                      ],
                     ),
+                    HorizontalProductsList("Category-two"),
+                    SizedBox(
+                      height: SizeConfig.screenwidth * 0.04,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        FetchCategoryName(context, "2"),
+                        SeeAllTextWidget(() {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CategoryThree()));
+                        }),
+                      ],
+                    ),
+                    HorizontalProductsList("Category-three"),
+
                   ],
                 ),
               ),
