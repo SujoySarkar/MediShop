@@ -3,23 +3,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medishop/ResponsiveDesign/sizeconfig.dart';
 
-Widget HorizontalProductsList(String collectionName) {
-  return Container(
-    height: SizeConfig.screenheight / 4.7,
-    width: SizeConfig.screenwidth,
+Widget ProductGridList(String collectionName) {
+  return Padding(
+    padding: EdgeInsets.all(SizeConfig.screenwidth * 0.035),
     child: StreamBuilder(
       stream: Firestore.instance.collection(collectionName).snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return ListView.builder(
-            scrollDirection: Axis.horizontal,
+          return GridView.builder(
+            scrollDirection: Axis.vertical,
             itemCount: snapshot.data.documents.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+            ),
             itemBuilder: (context, index) {
               DocumentSnapshot data = snapshot.data.documents[index];
               return Card(
                 elevation: 2,
                 child: Container(
-                  width: SizeConfig.screenwidth / 3,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.green, width: 0.5),
                   ),
