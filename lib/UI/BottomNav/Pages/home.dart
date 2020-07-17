@@ -5,6 +5,8 @@ import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:flutter_carousel_slider/carousel_slider_indicators.dart';
 import 'package:flutter_carousel_slider/carousel_slider_transforms.dart';
 import 'package:medishop/ResponsiveDesign/sizeconfig.dart';
+import 'package:medishop/UI/BottomNav/Pages/orderbycall.dart';
+import 'package:medishop/UI/BottomNav/Pages/uploadprescription.dart';
 import 'package:medishop/UI/CustomWidgets/customItem.dart';
 import 'package:medishop/UI/CustomWidgets/fetchcategory.dart';
 import 'package:medishop/UI/CustomWidgets/productlisthorizontal.dart';
@@ -117,7 +119,9 @@ class _HomePageState extends State<HomePage> {
                               SizeConfig.screenwidth * 0.35,
                               Icons.add_circle,
                               "Uplooad Prescription",
-                              () {},
+                              () {
+                                Navigator.push(context, CupertinoPageRoute(builder: (context)=>UploadPrescription()));
+                              },
                             ),
                             SizedBox(
                               width: SizeConfig.screenwidth * 0.015,
@@ -127,7 +131,10 @@ class _HomePageState extends State<HomePage> {
                               SizeConfig.screenwidth * 0.35,
                               Icons.phone_in_talk,
                               "Order By Call",
-                              () {},
+                              () {
+                                Navigator.push(context, CupertinoPageRoute(builder: (context)=>OrderByCallPage()));
+
+                              },
                             ),
                             SizedBox(
                               width: SizeConfig.screenwidth * 0.015,
