@@ -6,8 +6,8 @@ Widget SeeAllTextWidget(Function onPressed) {
     child: Text(
       "See All",
       style: TextStyle(
-          fontWeight: FontWeight.w700,
-          fontSize: SizeConfig.screenwidth * 0.045,
+          fontWeight: FontWeight.w300,
+          fontSize: SizeConfig.screenwidth * 0.044,
           color: Colors.red),
     ),
     onTap: onPressed,

@@ -33,12 +33,12 @@ Widget HorizontalProductsList(String collectionName) {
                           child: Container(
                               height: SizeConfig.screenwidth / 5,
                               width: SizeConfig.screenwidth / 4,
-                              child: Image.network(
+                              child: data["Product-image"]==null?Center(child: Text("Loading"),):Image.network(
                                 data["Product-image"],
                                 fit: BoxFit.fill,
                               )),
                         ),
-                        Text(
+                        data["Product-name"]==null?Center(child: Text("Loading"),):Text(
                           data["Product-name"],
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -66,7 +66,7 @@ Widget HorizontalProductsList(String collectionName) {
                         Text(
                           "\৳${data["after-offer-price"]}",
                           style: TextStyle(
-                              fontSize: SizeConfig.screenwidth * 0.042,color: Colors.cyan),
+                              fontSize: SizeConfig.screenwidth * 0.042,color: Colors.blue),
                         ),
                       ],
                     ),
@@ -75,7 +75,8 @@ Widget HorizontalProductsList(String collectionName) {
               );
             },
           );
-        } else if (snapshot.hasError) {
+        }
+        else if (snapshot.hasError) {
           return Center(
               child: CircularProgressIndicator(
             backgroundColor: Colors.orange,

@@ -16,8 +16,8 @@ Widget FetchCategoryName(BuildContext context, String documentid) {
             : Text(
                 userDocument["name"],
                 style: TextStyle(
-                    fontWeight: FontWeight.w300,
-                    fontSize: SizeConfig.screenwidth * 0.042,
+                    fontWeight: FontWeight.w400,
+                    fontSize: SizeConfig.screenwidth * 0.040,
                     color: Colors.black),
               );
       });

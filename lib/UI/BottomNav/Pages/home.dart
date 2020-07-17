@@ -9,7 +9,14 @@ import 'package:medishop/UI/CustomWidgets/customItem.dart';
 import 'package:medishop/UI/CustomWidgets/fetchcategory.dart';
 import 'package:medishop/UI/CustomWidgets/productlisthorizontal.dart';
 import 'package:medishop/UI/CustomWidgets/textwidget.dart';
+import 'package:medishop/UI/SeeAll/categoryeight.dart';
+import 'package:medishop/UI/SeeAll/categoryfive.dart';
+import 'package:medishop/UI/SeeAll/categoryfour.dart';
+import 'package:medishop/UI/SeeAll/categorynine.dart';
 import 'package:medishop/UI/SeeAll/categoryone.dart';
+import 'package:medishop/UI/SeeAll/categoryseven.dart';
+import 'package:medishop/UI/SeeAll/categorysix.dart';
+import 'package:medishop/UI/SeeAll/categoryten.dart';
 import 'package:medishop/UI/SeeAll/categorythree.dart';
 import 'package:medishop/UI/SeeAll/categorytwo.dart';
 
@@ -19,6 +26,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  double sizeboxheight = SizeConfig.screenwidth * 0.04;
+
   Future getimgforCarousel() async {
     var firestore = Firestore.instance;
     QuerySnapshot qn =
@@ -134,7 +144,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     SizedBox(
-                      height: SizeConfig.screenwidth * 0.04,
+                      height: sizeboxheight,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -150,7 +160,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     HorizontalProductsList("Category-one"),
                     SizedBox(
-                      height: SizeConfig.screenwidth * 0.04,
+                      height: sizeboxheight,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -166,7 +176,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     HorizontalProductsList("Category-two"),
                     SizedBox(
-                      height: SizeConfig.screenwidth * 0.04,
+                      height: sizeboxheight,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -181,6 +191,118 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     HorizontalProductsList("Category-three"),
+                    SizedBox(
+                      height: sizeboxheight,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        FetchCategoryName(context, "3"),
+                        SeeAllTextWidget(() {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CategoryFour()));
+                        }),
+                      ],
+                    ),
+                    HorizontalProductsList("Category-four"),
+                    SizedBox(
+                      height: sizeboxheight,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        FetchCategoryName(context, "4"),
+                        SeeAllTextWidget(() {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CategoryFive()));
+                        }),
+                      ],
+                    ),
+                    HorizontalProductsList("Category-five"),
+                    SizedBox(
+                      height: sizeboxheight,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        FetchCategoryName(context, "5"),
+                        SeeAllTextWidget(() {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CategorySix()));
+                        }),
+                      ],
+                    ),
+                    HorizontalProductsList("Category-six"),
+                    SizedBox(
+                      height: sizeboxheight,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        FetchCategoryName(context, "6"),
+                        SeeAllTextWidget(() {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CategorySeven()));
+                        }),
+                      ],
+                    ),
+                    HorizontalProductsList("Category-seven"),
+                    SizedBox(
+                      height: sizeboxheight,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        FetchCategoryName(context, "7"),
+                        SeeAllTextWidget(() {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CategoryEight()));
+                        }),
+                      ],
+                    ),
+                    HorizontalProductsList("Category-eight"),
+                    SizedBox(
+                      height: sizeboxheight,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        FetchCategoryName(context, "8"),
+                        SeeAllTextWidget(() {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CategoryNine()));
+                        }),
+                      ],
+                    ),
+                    HorizontalProductsList("Category-nine"),
+                    SizedBox(
+                      height: sizeboxheight,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        FetchCategoryName(context, "9"),
+                        SeeAllTextWidget(() {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CategoryTen()));
+                        }),
+                      ],
+                    ),
+                    HorizontalProductsList("Category-ten"),
 
                   ],
                 ),
