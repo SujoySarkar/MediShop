@@ -99,6 +99,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.2.0"
+  equatable:
+    dependency: transitive
+    description:
+      name: equatable
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.2.2"
   file:
     dependency: transitive
     description:
@@ -160,6 +167,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.1"
+  flutter_plugin_android_lifecycle:
+    dependency: transitive
+    description:
+      name: flutter_plugin_android_lifecycle
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.8"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -170,6 +184,27 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  geocoder:
+    dependency: "direct main"
+    description:
+      name: geocoder
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.2.1"
+  geolocator:
+    dependency: "direct main"
+    description:
+      name: geolocator
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "5.3.2+2"
+  google_api_availability:
+    dependency: transitive
+    description:
+      name: google_api_availability
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.4"
   http:
     dependency: transitive
     description:
@@ -191,6 +226,20 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.12"
+  image_picker:
+    dependency: "direct main"
+    description:
+      name: image_picker
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.6.7+4"
+  image_picker_platform_interface:
+    dependency: transitive
+    description:
+      name: image_picker_platform_interface
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.0"
   intl:
     dependency: transitive
     description:
@@ -212,6 +261,34 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.6.2"
+  location:
+    dependency: "direct main"
+    description:
+      name: location
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.0.2"
+  location_permissions:
+    dependency: transitive
+    description:
+      name: location_permissions
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.0.0+1"
+  location_platform_interface:
+    dependency: transitive
+    description:
+      name: location_platform_interface
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.0"
+  location_web:
+    dependency: transitive
+    description:
+      name: location_web
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.0"
   matcher:
     dependency: transitive
     description:

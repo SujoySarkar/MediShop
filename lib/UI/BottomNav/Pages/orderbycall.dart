@@ -12,7 +12,7 @@ class OrderByCallPage extends StatefulWidget {
 class _OrderByCallPageState extends State<OrderByCallPage> {
   @override
   Widget build(BuildContext context) {
-    int number;
+    DocumentSnapshot number;
 
     return Scaffold(
       body: SafeArea(
@@ -74,6 +74,7 @@ class _OrderByCallPageState extends State<OrderByCallPage> {
                                     .snapshots(),
                                 builder: (context, snapshot) {
                                   var userDocument = snapshot.data;
+                                  number=userDocument;
                                   return userDocument == null
                                       ? Text("")
                                       : Text(
@@ -91,7 +92,7 @@ class _OrderByCallPageState extends State<OrderByCallPage> {
                           child: Align(
                             alignment: Alignment.bottomCenter,
                             child: CustomButton("Call Now", () {
-                              launch("tel://$number");
+                              launch("tel://${number['number'].toString()}");
                             }),
                           ),
                         ),
@@ -99,7 +100,7 @@ class _OrderByCallPageState extends State<OrderByCallPage> {
                     ),
                   ),
                 )),
-            Expanded(flex: 2, child: Container()),
+            Expanded(flex: 2, child: Container(),),
           ],
         ),
       ),

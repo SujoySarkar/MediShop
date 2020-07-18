@@ -28,7 +28,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   double sizeboxheight = SizeConfig.screenwidth * 0.04;
 
   Future getimgforCarousel() async {
@@ -120,7 +119,11 @@ class _HomePageState extends State<HomePage> {
                               Icons.add_circle,
                               "Uplooad Prescription",
                               () {
-                                Navigator.push(context, CupertinoPageRoute(builder: (context)=>UploadPrescription()));
+                                Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                        builder: (context) =>
+                                            UploadPrescription()));
                               },
                             ),
                             SizedBox(
@@ -132,8 +135,11 @@ class _HomePageState extends State<HomePage> {
                               Icons.phone_in_talk,
                               "Order By Call",
                               () {
-                                Navigator.push(context, CupertinoPageRoute(builder: (context)=>OrderByCallPage()));
-
+                                Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                        builder: (context) =>
+                                            OrderByCallPage()));
                               },
                             ),
                             SizedBox(
@@ -310,7 +316,6 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     HorizontalProductsList("Category-ten"),
-
                   ],
                 ),
               ),
