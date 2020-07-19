@@ -11,7 +11,7 @@ Widget CustomButton(String centertext, Function onPressed){
         borderRadius: BorderRadius.all(Radius.circular(5)),
       ),
       child: Material(
-        borderRadius: BorderRadius.all(Radius.circular(5)),
+          borderRadius: BorderRadius.all(Radius.circular(5)),
           color: Colors.green,
           child: InkWell(
             onTap: onPressed,
