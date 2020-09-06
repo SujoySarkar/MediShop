@@ -1,10 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:medishop/ResponsiveDesign/sizeconfig.dart';
 import 'package:medishop/UI/BottomNav/bottomnavcontroller.dart';
 import 'package:medishop/UI/LoginScreen/registration.dart';
+import 'package:medishop/logic/login.dart';
+import 'package:provider/provider.dart';
+
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -17,6 +22,31 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _password = TextEditingController();
   // global key
   final _key = GlobalKey<FormState>();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+   //  login (email,password)async{
+//
+//    try{
+//      final FirebaseUser user = (await
+//      _auth.signInWithEmailAndPassword(
+//        email: email.text,
+//        password: password.text,
+//      )).user;
+//
+//      if (user != null) {
+//        Navigator.push(context, CupertinoPageRoute(builder: (context)=>BottomNavController(),),);
+//      }
+//
+//    }catch(e){
+//
+//      Fluttertoast.showToast(msg: "Not Verified",toastLength: Toast.LENGTH_SHORT,gravity: ToastGravity.BOTTOM);
+//
+//    }
+//
+//
+//
+//
+//    // Fluttertoast.showToast(msg: "Email is not varified",toastLength: Toast.LENGTH_SHORT,gravity: ToastGravity.BOTTOM);
+//  }
 
   @override
   void initState() {
@@ -28,6 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final providerdata = Provider.of<UserLogin>(context);
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -48,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text("Login",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: SizeConfig.screenheight*0.05),),
                     ),
                   ),
-
+                  SizedBox(height: SizeConfig.screenheight*0.1,),
                   // Form Widget
                   Padding(
                     padding: EdgeInsets.all(SizeConfig.screenwidth * 0.05),
@@ -116,7 +147,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   // Text Span
                   Padding(
-                    padding: EdgeInsets.all(SizeConfig.screenwidth * 0.05),
+                    padding: EdgeInsets.only(left: SizeConfig.screenwidth * 0.05,right: SizeConfig.screenwidth * 0.05),
+
 
                     child: Align(
                       alignment: Alignment.centerRight,
@@ -134,11 +166,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-
-                  Divider(),
+                  SizedBox(height: SizeConfig.screenheight*0.05,),
                   // button
                   Padding(
-                    padding: EdgeInsets.all(SizeConfig.screenwidth * 0.05),
+                    padding: EdgeInsets.only(left: SizeConfig.screenwidth * 0.05,right: SizeConfig.screenwidth * 0.05,),
                     child: Container(
                       height: SizeConfig.screenheight * 0.055,
                       width: SizeConfig.screenwidth,
@@ -151,7 +182,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: InkWell(
                           onTap: () {
                             if(_key.currentState.validate()){
-                              Navigator.push(context, CupertinoPageRoute(builder: (context)=>BottomNavController()));
+
+                              providerdata.login(_email, _password, context);
+
+
                             }
                           },
                           splashColor: Colors.white,

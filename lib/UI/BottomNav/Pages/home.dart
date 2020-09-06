@@ -133,13 +133,9 @@ class _HomePageState extends State<HomePage> {
                               SizeConfig.screenwidth * 0.2,
                               SizeConfig.screenwidth * 0.35,
                               Icons.phone_in_talk,
-                              "Order By Call",
+                              "Medicine Request",
                               () {
-                                Navigator.push(
-                                    context,
-                                    CupertinoPageRoute(
-                                        builder: (context) =>
-                                            OrderByCallPage()));
+                                // Navigator.push(context, CupertinoPageRoute(builder: (context) => OrderByCallPage()));
                               },
                             ),
                             SizedBox(
@@ -149,7 +145,7 @@ class _HomePageState extends State<HomePage> {
                               SizeConfig.screenwidth * 0.2,
                               SizeConfig.screenwidth * 0.35,
                               Icons.add_comment,
-                              "HealthCare Products",
+                              "For Shop Owner",
                               () {},
                             ),
                           ],

@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:medishop/ProductDetails/checkout.dart';
 import 'package:medishop/ResponsiveDesign/sizeconfig.dart';
+import 'package:medishop/logic/login.dart';
+import 'package:provider/provider.dart';
 
 class Details extends StatefulWidget {
   DocumentSnapshot data;
@@ -13,10 +14,12 @@ class Details extends StatefulWidget {
 }
 
 class _DetailsState extends State<Details> {
+  final db = Firestore.instance;
   int quantity = 0;
 
   @override
   Widget build(BuildContext context) {
+    final providerdata = Provider.of<UserLogin>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
@@ -24,102 +27,200 @@ class _DetailsState extends State<Details> {
         actions: <Widget>[
           IconButton(
             onPressed: () {
-              Navigator.push(context,
-                  CupertinoPageRoute(builder: (context) => Checkout()));
+              // Navigator.push(context, CupertinoPageRoute(builder: (context) => Checkout()));
             },
             icon: Icon(Icons.shopping_cart),
           )
         ],
       ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
+      body: SafeArea(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            widget.data['Product-image'] == null
-                ? Text("Image Loading")
-                : Padding(
-                    padding: const EdgeInsets.all(40.0),
-                    child: Container(
-                        height: 250,
-                        width: 400,
-                        child: Image.network(
-                          widget.data['Product-image'],
-                          fit: BoxFit.cover,
-                        )),
+            Expanded(
+              flex: 10,
+              child: Padding(
+                padding: EdgeInsets.only(
+                    left: SizeConfig.screenheight * 0.02,
+                    right: SizeConfig.screenheight * 0.02,
+                    top: SizeConfig.screenheight * 0.02),
+                child: Container(
+
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        // product name
+
+                        widget.data["Product-name"] == null
+                            ? Center(
+                          child: Text("Loading"),
+                        )
+                            : Text(
+                          widget.data["Product-name"],
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: SizeConfig.screenwidth * 0.05,
+                          ),
+                        ),
+
+                        SizedBox(height: SizeConfig.screenheight*0.03,),
+
+                        // product image
+                        widget.data['Product-image'] == null
+                            ? Text("Image Loading")
+                            : Card(
+                          child: Container(
+                              height: SizeConfig.screenheight/5,
+                              width: SizeConfig.screenwidth,
+                              child: Image.network(
+                                widget.data['Product-image'],
+                                fit: BoxFit.cover,
+                              )),
+                        ),
+
+                        SizedBox(height: SizeConfig.screenheight*0.03,),
+
+                        // product description
+                        widget.data["Product-description"] == null
+                            ? Center(
+                          child: Text("Loading"),
+                        )
+                            : Text(
+                          widget.data["Product-description"],
+
+                          style: TextStyle(
+                            color: Colors.green,
+                            fontSize: SizeConfig.screenwidth * 0.038,
+                          ),
+                        ),
+
+                        SizedBox(height: SizeConfig.screenheight*0.04,),
+
+                        // Card
+
+                        Card(
+                          elevation: 5,
+                          child: Container(
+                            height: SizeConfig.screenheight/6,
+                            width: SizeConfig.screenwidth,
+
+                            child: Padding(
+                              padding:  EdgeInsets.all(SizeConfig.screenheight*0.01),
+                              child: Column(
+                                children: <Widget>[
+
+                                  Row(
+                                    children: <Widget>[
+                                      Text("Best Price",style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: SizeConfig.screenwidth * 0.04,
+                                      ),),
+
+                                      SizedBox(width: SizeConfig.screenheight*0.03,),
+                                      widget.data["after-offer-price"] == null
+                                          ? Center(
+                                        child: Text("Loading"),
+                                      )
+                                          : Text(
+                                        "\৳${widget.data["after-offer-price"]}",
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: SizeConfig.screenwidth * 0.05,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Text("MRP",style: TextStyle(
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: SizeConfig.screenwidth * 0.04,
+                                      ),),
+
+                                      SizedBox(width: SizeConfig.screenheight*0.01,),
+                                      widget.data["previous-price"] == null
+                                          ? Center(
+                                        child: Text("Loading"),
+                                      )
+                                          : Text(
+                                        "\৳${widget.data["previous-price"]}",
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          decoration: TextDecoration.lineThrough,
+                                          color: Colors.grey,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: SizeConfig.screenwidth * 0.04,
+                                        ),
+                                      ),
+
+                                      SizedBox(width: SizeConfig.screenheight*0.025,),
+                                      widget.data["offer"] == null
+                                          ? Center(
+                                        child: Text("Loading"),
+                                      )
+                                          : Text(
+                                        widget.data["offer"],
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          color: Colors.green,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: SizeConfig.screenwidth * 0.045,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+                                ],
+                              ),
+                            ),
+
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-            Center(
-              child: widget.data["Product-name"] == null
-                  ? Center(
-                      child: Text("Loading"),
-                    )
-                  : Text(
-                      widget.data["Product-name"],
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: Colors.green,
-                        fontSize: SizeConfig.screenwidth * 0.038,
-                      ),
-                    ),
-            ),
-            Center(
-              child: widget.data["Product-description"] == null
-                  ? Center(
-                      child: Text("Loading"),
-                    )
-                  : Text(
-                      widget.data["Product-description"],
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontSize: SizeConfig.screenwidth * 0.038,
-                      ),
-                    ),
-            ),
-            Center(
-              child: widget.data["after-offer-price"] == null
-                  ? Center(
-                      child: Text("Loading"),
-                    )
-                  : Text(
-                      widget.data["after-offer-price"],
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: SizeConfig.screenwidth * 0.038,
-                      ),
-                    ),
-            ),
-            Text("Quantity"),
-            Text(quantity.toString()),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                RaisedButton(
-                  onPressed: () {
-                    setState(() {
-                      quantity++;
-                    });
-                  },
-                  child: Text("+"),
                 ),
-                RaisedButton(
-                  onPressed: () {
-                    setState(
-                      () {
-                        quantity--;
-                      },
-                    );
-                  },
-                  child: Text("-"),
-                ),
-              ],
+              ),
             ),
-            SizedBox(
-              height: 50,
-            ),
-            RaisedButton(
-              onPressed: () {},
-              child: Text("add"),
+            Expanded(
+              flex: 1,
+              child: Container(
+
+                  decoration: BoxDecoration(
+
+                    borderRadius: BorderRadius.only(topRight: Radius.circular(SizeConfig.screenheight*0.09)),
+                  ),
+                  child: Material(
+                      borderRadius: BorderRadius.only(topRight: Radius.circular(SizeConfig.screenheight*0.09)),
+                      color: Colors.green,
+                      child: InkWell(
+                        onTap: (){},
+                        splashColor: Colors.white,
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(Icons.add_shopping_cart,color: Colors.white,size: SizeConfig.screenheight*0.04,),
+                              SizedBox(width: SizeConfig.screenheight*0.02,),
+                              Text(
+                                "Add to cart",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: SizeConfig.screenwidth*0.05),
+                              ),
+                            ],
+                          )
+                        ),
+                      ))),
             ),
           ],
         ),

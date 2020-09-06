@@ -1,10 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:medishop/ResponsiveDesign/sizeconfig.dart';
-import 'package:medishop/UI/BottomNav/bottomnavcontroller.dart';
 import 'package:medishop/UI/LoginScreen/loginpage.dart';
 
 
@@ -14,14 +14,36 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-  final TextEditingController _username = TextEditingController();
-  final TextEditingController _Phone = TextEditingController();
+  var name;
+  var phone;
+
+
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
   // global key
   final _key = GlobalKey<FormState>();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final db = Firestore.instance;
 
-
+  // registration function
+  signup (String name,phone,email,password)async{
+    final FirebaseUser user = (await
+    _auth.createUserWithEmailAndPassword(
+      email: email.text,
+      password: password.text,
+    )
+    ).user;
+    if (user != null) {
+       db.collection("users").add({
+         'name':name,
+         'phone':phone,
+         'email':_email.text,
+         'password':_password.text,
+         'UID':user.uid,
+       });
+       Navigator.push(context, CupertinoPageRoute(builder: (context)=>LoginScreen(),),);
+    }
+  }
 
   @override
   void initState() {
@@ -70,7 +92,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 return "Enter Your Full Name";
                               }
                             },
-                            controller: _username,
+                            onChanged: (val){
+                              setState(() {
+                                name=val;
+                              });
+                            },
                             decoration: InputDecoration(
                               labelText: "Full Name",
                               fillColor: Colors.white,
@@ -97,7 +123,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 return "Enter Your Phone Number";
                               }
                             },
-                            controller: _Phone,
+                            onChanged: (val){
+                              setState(() {
+                                phone=val;
+                              });
+                            },
                             decoration: InputDecoration(
                               labelText: "Phone Number",
                               fillColor: Colors.white,
@@ -212,7 +242,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         child: InkWell(
                           onTap: () {
                             if(_key.currentState.validate()){
-                              Navigator.push(context, CupertinoPageRoute(builder: (context)=>BottomNavController()));
+                              signup(name, phone, _email, _password);
                             }
                           },
                           splashColor: Colors.white,

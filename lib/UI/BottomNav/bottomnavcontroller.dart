@@ -3,7 +3,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:medishop/UI/BottomNav/Pages/help.dart';
 import 'package:medishop/UI/BottomNav/Pages/home.dart';
 import 'package:medishop/UI/BottomNav/Pages/orderbycall.dart';
-import 'package:medishop/UI/BottomNav/Pages/requestmedicine.dart';
+import 'package:medishop/UI/BottomNav/Pages/shoppingcart.dart';
 import 'package:medishop/UI/BottomNav/Pages/uploadprescription.dart';
 
 class BottomNavController extends StatefulWidget {
@@ -17,7 +17,7 @@ class _BottomNavControllerState extends State<BottomNavController> {
     HomePage(),
     OrderByCallPage(),
     UploadPrescription(),
-    RequestMedicine(),
+    ShoppingCart(),
     HelpPage(),
   ];
   @override
