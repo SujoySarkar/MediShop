@@ -22,44 +22,47 @@ class _BottomNavControllerState extends State<BottomNavController> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: CurvedNavigationBar(
-        height: MediaQuery.of(context).size.height / 13,
-        index: 0,
-        color: Colors.pink,
-        buttonBackgroundColor: Colors.pink,
-        backgroundColor: Colors.white24,
-        animationCurve: Curves.easeInOut,
-        animationDuration: Duration(milliseconds: 500),
-        items: [
-          Icon(
-            Icons.home,
-            color: Colors.white,
-          ),
-          Icon(
-            Icons.phone_in_talk,
-            color: Colors.white,
-          ),
-          Icon(
-            Icons.add_circle,
-            color: Colors.white,
-          ),
-          Icon(
-            Icons.shopping_cart,
-            color: Colors.white,
-          ),
-          Icon(
-            Icons.help,
-            color: Colors.white,
-          ),
-        ],
-        onTap: (value) {
-          setState(() {
-            index = value;
-          });
-        },
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        bottomNavigationBar: CurvedNavigationBar(
+          height: MediaQuery.of(context).size.height / 13,
+          index: 0,
+          color: Colors.pink,
+          buttonBackgroundColor: Colors.pink,
+          backgroundColor: Colors.white24,
+          animationCurve: Curves.easeInOut,
+          animationDuration: Duration(milliseconds: 500),
+          items: [
+            Icon(
+              Icons.home,
+              color: Colors.white,
+            ),
+            Icon(
+              Icons.phone_in_talk,
+              color: Colors.white,
+            ),
+            Icon(
+              Icons.add_circle,
+              color: Colors.white,
+            ),
+            Icon(
+              Icons.shopping_cart,
+              color: Colors.white,
+            ),
+            Icon(
+              Icons.help,
+              color: Colors.white,
+            ),
+          ],
+          onTap: (value) {
+            setState(() {
+              index = value;
+            });
+          },
+        ),
+        body: _pages[index],
       ),
-      body: _pages[index],
     );
   }
 }

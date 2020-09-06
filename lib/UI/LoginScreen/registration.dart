@@ -1,22 +1,27 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:medishop/ResponsiveDesign/sizeconfig.dart';
 import 'package:medishop/UI/BottomNav/bottomnavcontroller.dart';
-import 'package:medishop/UI/LoginScreen/registration.dart';
+import 'package:medishop/UI/LoginScreen/loginpage.dart';
 
-class LoginScreen extends StatefulWidget {
+
+class RegistrationScreen extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _RegistrationScreenState createState() => _RegistrationScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-
+class _RegistrationScreenState extends State<RegistrationScreen> {
+  final TextEditingController _username = TextEditingController();
+  final TextEditingController _Phone = TextEditingController();
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
   // global key
   final _key = GlobalKey<FormState>();
+
+
 
   @override
   void initState() {
@@ -28,6 +33,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -41,11 +48,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: SizeConfig.screenheight/6,
                     width: SizeConfig.screenwidth,
                     decoration: BoxDecoration(
-                      color: Colors.green,
-                      borderRadius: BorderRadius.only(bottomRight: Radius.circular(SizeConfig.screenheight*0.2))
+                        color: Colors.green,
+                        borderRadius: BorderRadius.only(bottomRight: Radius.circular(SizeConfig.screenheight*0.2))
                     ),
                     child: Center(
-                      child: Text("Login",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: SizeConfig.screenheight*0.05),),
+                      child: Text("Sign Up",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: SizeConfig.screenheight*0.05),),
                     ),
                   ),
 
@@ -56,7 +63,61 @@ class _LoginScreenState extends State<LoginScreen> {
                       key: _key,
                       child: Column(
                         children: <Widget>[
+                          TextFormField(
+                            keyboardType: TextInputType.text,
+                            validator: (value){
+                              if(value.isEmpty){
+                                return "Enter Your Full Name";
+                              }
+                            },
+                            controller: _username,
+                            decoration: InputDecoration(
+                              labelText: "Full Name",
+                              fillColor: Colors.white,
+                              focusedBorder: OutlineInputBorder(
 
+                                borderSide: BorderSide(
+                                  color: Colors.green,
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+
+                                borderSide: BorderSide(
+                                  color: Colors.green,
+                                  width: 1.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: SizeConfig.screenheight*0.02,),
+                          TextFormField(
+
+                            validator: (value){
+                              if(value.isEmpty){
+                                return "Enter Your Phone Number";
+                              }
+                            },
+                            controller: _Phone,
+                            decoration: InputDecoration(
+                              labelText: "Phone Number",
+                              fillColor: Colors.white,
+                              focusedBorder: OutlineInputBorder(
+
+                                borderSide: BorderSide(
+                                  color: Colors.green,
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+
+                                borderSide: BorderSide(
+                                  color: Colors.green,
+                                  width: 1.0,
+                                ),
+                              ),
+                            ),
+                            keyboardType: TextInputType.number,
+                          ),
+                          SizedBox(height: SizeConfig.screenheight*0.02,),
                           TextFormField(
                             keyboardType: TextInputType.emailAddress,
                             validator: (value){
@@ -87,8 +148,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           TextFormField(
                             keyboardType: TextInputType.visiblePassword,
                             validator: (value){
-                              if(value.length<5){
-                                return "Enter Corrcet Password";
+                              if(value.length<6){
+                                return "Passwod atlest 6 digit";
                               }
                             },
                             controller: _password,
@@ -121,15 +182,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: RichText(text: TextSpan(
-                        text: "Not registered yet ? ",style: TextStyle(color: Colors.black),
-                        children: [
+                          text: "Already have an account ? ",style: TextStyle(color: Colors.black),
+                          children: [
 
-                          TextSpan(
+                            TextSpan(
 
-                            text: "Create Account",style: TextStyle(color: Colors.green,fontSize: SizeConfig.screenheight*0.02,fontWeight: FontWeight.w600),
-                            recognizer: TapGestureRecognizer()..onTap=()=>Navigator.push(context, CupertinoPageRoute(builder: (context)=>RegistrationScreen()))
-                          )
-                        ]
+                                text: "LOGIN",style: TextStyle(color: Colors.green,fontSize: SizeConfig.screenheight*0.02,fontWeight: FontWeight.w600),
+                                recognizer: TapGestureRecognizer()..onTap=()=>Navigator.push(context, CupertinoPageRoute(builder: (context)=>LoginScreen()))
+                            )
+                          ]
                       ),
                       ),
                     ),
