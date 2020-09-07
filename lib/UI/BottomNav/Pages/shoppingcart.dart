@@ -4,7 +4,12 @@ import 'package:medishop/ResponsiveDesign/sizeconfig.dart';
 import 'package:medishop/logic/login.dart';
 import 'package:provider/provider.dart';
 
-class ShoppingCart extends StatelessWidget {
+class ShoppingCart extends StatefulWidget {
+  @override
+  _ShoppingCartState createState() => _ShoppingCartState();
+}
+
+class _ShoppingCartState extends State<ShoppingCart> {
   @override
   Widget build(BuildContext context) {
     final providerdata = Provider.of<UserLogin>(context);
@@ -17,7 +22,7 @@ class ShoppingCart extends StatelessWidget {
               scrollDirection: Axis.vertical,
               itemCount: snapshot.data.documents.length,
               itemBuilder: (context, index) {
-                DocumentSnapshot data = snapshot.data.documents[index];
+                DocumentSnapshot dataa = snapshot.data.documents[index];
                 return Card(
                   elevation: 2,
                   child: Container(
@@ -32,50 +37,52 @@ class ShoppingCart extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          Center(
-                            child: Container(
-                                height: SizeConfig.screenwidth / 5,
-                                width: SizeConfig.screenwidth / 4,
-                                child: data["Product-image"] == null
-                                    ? Center(
-                                  child: Text("Loading"),
-                                )
-                                    : Image.network(
-                                  data["Product-image"],
-                                  fit: BoxFit.fill,
-                                )),
+
+                          Row(
+
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              Center(
+                                child: Container(
+                                    height: SizeConfig.screenwidth / 5,
+                                    width: SizeConfig.screenwidth / 4,
+                                    child: dataa["Product-image"] == null
+                                        ? Center(
+                                      child: Text("Loading"),
+                                    )
+                                        : Image.network(
+                                      dataa["Product-image"],
+                                      fit: BoxFit.fill,
+                                    )),
+                              ),
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: IconButton(icon: Icon(Icons.delete,color: Colors.grey,
+                                  size: SizeConfig.screenheight*0.03,), onPressed: ()async{
+
+                                        setState(() {
+                                          Firestore.instance.collection("Checkout").document(providerdata.userid).collection("cartlist").document().delete();
+
+                                        });
+
+                                }),
+                              ),
+                            ],
                           ),
-                          data["Product-name"] == null
+                          dataa["product-name"] == null
                               ? Center(
                             child: Text("Loading"),
                           )
                               : Text(
-                            data["Product-name"],
+                            dataa["product-name"],
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontSize: SizeConfig.screenwidth * 0.038,
                             ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text(
-                                "\৳${data["previous-price"]}",
-                                style: TextStyle(
-                                    decoration: TextDecoration.lineThrough,
-                                    fontSize: SizeConfig.screenwidth * 0.03),
-                              ),
-                              Text(
-                                data["offer"],
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: SizeConfig.screenwidth * 0.03),
-                              ),
-                            ],
-                          ),
+
                           Text(
-                            "\৳${data["after-offer-price"]}",
+                            "\৳${dataa["after-offer-price"]}",
                             style: TextStyle(
                                 fontSize: SizeConfig.screenwidth * 0.042,
                                 color: Colors.blue),
