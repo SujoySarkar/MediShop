@@ -17,6 +17,7 @@ class Details extends StatefulWidget {
 
 class _DetailsState extends State<Details> {
   final db = Firestore.instance;
+
   int quantity = 1;
   int addedtocart = 0;
   bool value  = false;
@@ -299,6 +300,7 @@ class _DetailsState extends State<Details> {
                               'product-name': widget.data['Product-name'],
                               'Product-image': widget.data['Product-image'],
                               'after-offer-price': quantity*widget.data['after-offer-price'],
+                              'document-id': widget.data.reference,
 
                             },
                           ): Fluttertoast.showToast(msg: "Already Added",toastLength: Toast.LENGTH_SHORT,gravity: ToastGravity.BOTTOM);;
