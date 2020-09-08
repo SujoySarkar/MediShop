@@ -21,10 +21,18 @@ class _DetailsState extends State<Details> {
   int quantity = 1;
   int addedtocart = 0;
   bool value  = false;
+  int cartlength=0;
+
+
 
   @override
   Widget build(BuildContext context) {
+
+
     final providerdata = Provider.of<UserLogin>(context);
+
+
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
@@ -44,7 +52,25 @@ class _DetailsState extends State<Details> {
                   icon: Icon(Icons.shopping_cart),
                 ),
 
-                Positioned(child: Text("$addedtocart",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
+                Positioned(child: StreamBuilder(
+                    stream: Firestore.instance
+                        .collection("Checkout")
+                        .document(providerdata.userid)
+                        .collection("cartlist")
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+
+                        return Text("${snapshot.data.documents.length}",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),);
+                      }
+                      return Center(
+                          );
+                    },
+
+
+
+                    //child: Text("${cartlength}",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)
+                )),
               ],
             ),
           )
@@ -348,4 +374,5 @@ class _DetailsState extends State<Details> {
       ),
     );
   }
+
 }

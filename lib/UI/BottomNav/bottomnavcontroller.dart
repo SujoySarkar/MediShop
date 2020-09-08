@@ -12,6 +12,8 @@ class BottomNavController extends StatefulWidget {
 }
 
 class _BottomNavControllerState extends State<BottomNavController> {
+  
+  
   int index = 0;
   final _pages = [
     HomePage(),
@@ -20,8 +22,11 @@ class _BottomNavControllerState extends State<BottomNavController> {
     ShoppingCart(),
     HelpPage(),
   ];
+  
+
   @override
   Widget build(BuildContext context) {
+
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(

@@ -3,9 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:medishop/ResponsiveDesign/sizeconfig.dart';
-import 'package:medishop/UI/BottomNav/bottomnavcontroller.dart';
 import 'package:medishop/UI/LoginScreen/registration.dart';
 import 'package:medishop/logic/login.dart';
 import 'package:provider/provider.dart';
@@ -23,31 +21,6 @@ class _LoginScreenState extends State<LoginScreen> {
   // global key
   final _key = GlobalKey<FormState>();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-   //  login (email,password)async{
-//
-//    try{
-//      final FirebaseUser user = (await
-//      _auth.signInWithEmailAndPassword(
-//        email: email.text,
-//        password: password.text,
-//      )).user;
-//
-//      if (user != null) {
-//        Navigator.push(context, CupertinoPageRoute(builder: (context)=>BottomNavController(),),);
-//      }
-//
-//    }catch(e){
-//
-//      Fluttertoast.showToast(msg: "Not Verified",toastLength: Toast.LENGTH_SHORT,gravity: ToastGravity.BOTTOM);
-//
-//    }
-//
-//
-//
-//
-//    // Fluttertoast.showToast(msg: "Email is not varified",toastLength: Toast.LENGTH_SHORT,gravity: ToastGravity.BOTTOM);
-//  }
-
   @override
   void initState() {
     SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);

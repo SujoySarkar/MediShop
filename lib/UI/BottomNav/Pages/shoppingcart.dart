@@ -16,106 +16,106 @@ class _ShoppingCartState extends State<ShoppingCart> {
     return Scaffold(
       body: SafeArea(
         child: StreamBuilder(
-          stream: Firestore.instance
-              .collection("Checkout")
-              .document(providerdata.userid)
-              .collection("cartlist")
-              .snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: snapshot.data.documents.length,
-                itemBuilder: (context, index) {
-                  DocumentSnapshot dataa = snapshot.data.documents[index];
-                  return Card(
-                    elevation: 2,
-                    child: Container(
-                      height: SizeConfig.screenheight / 5,
-                      width: SizeConfig.screenwidth,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.green, width: 0.5),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.all(SizeConfig.screenwidth * 0.015),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: <Widget>[
-                                Center(
-                                  child: Container(
-                                      height: SizeConfig.screenwidth / 5,
-                                      width: SizeConfig.screenwidth / 4,
-                                      child: dataa["Product-image"] == null
-                                          ? Center(
-                                              child: Text("Loading"),
-                                            )
-                                          : Image.network(
-                                              dataa["Product-image"],
-                                              fit: BoxFit.fill,
-                                            )),
-                                ),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: IconButton(
-                                      icon: Icon(
-                                        Icons.delete,
-                                        color: Colors.grey,
-                                        size: SizeConfig.screenheight * 0.03,
-                                      ),
-                                      onPressed: () async {
-                                        setState(() {
-                                          Firestore.instance
-                                              .collection("Checkout")
-                                              .document(providerdata.userid)
-                                              .collection("cartlist")
-                                              .document(snapshot.data
-                                                  .documents[index].documentID)
-                                              .delete();
-                                        });
-                                      }),
-                                ),
-                              ],
-                            ),
-                            dataa["product-name"] == null
-                                ? Center(
-                                    child: Text("Loading"),
-                                  )
-                                : Text(
-                                    dataa["product-name"],
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      fontSize: SizeConfig.screenwidth * 0.038,
+        stream: Firestore.instance
+            .collection("Checkout")
+            .document(providerdata.userid)
+            .collection("cartlist")
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              scrollDirection: Axis.vertical,
+              itemCount: snapshot.data.documents.length,
+              itemBuilder: (context, index) {
+                DocumentSnapshot dataa = snapshot.data.documents[index];
+                return Card(
+                  elevation: 2,
+                  child: Container(
+                    height: SizeConfig.screenheight / 5,
+                    width: SizeConfig.screenwidth,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.green, width: 0.5),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(SizeConfig.screenwidth * 0.015),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              Center(
+                                child: Container(
+                                    height: SizeConfig.screenwidth / 5,
+                                    width: SizeConfig.screenwidth / 4,
+                                    child: dataa["Product-image"] == null
+                                        ? Center(
+                                      child: Text("Loading"),
+                                    )
+                                        : Image.network(
+                                      dataa["Product-image"],
+                                      fit: BoxFit.fill,
+                                    )),
+                              ),
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: IconButton(
+                                    icon: Icon(
+                                      Icons.delete,
+                                      color: Colors.grey,
+                                      size: SizeConfig.screenheight * 0.03,
                                     ),
-                                  ),
-                            Text(
-                              "\৳${dataa["after-offer-price"]}",
-                              style: TextStyle(
-                                  fontSize: SizeConfig.screenwidth * 0.042,
-                                  color: Colors.blue),
+                                    onPressed: () async {
+                                      setState(() {
+                                        Firestore.instance
+                                            .collection("Checkout")
+                                            .document(providerdata.userid)
+                                            .collection("cartlist")
+                                            .document(snapshot.data
+                                            .documents[index].documentID)
+                                            .delete();
+                                      });
+                                    }),
+                              ),
+                            ],
+                          ),
+                          dataa["product-name"] == null
+                              ? Center(
+                            child: Text("Loading"),
+                          )
+                              : Text(
+                            dataa["product-name"],
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: SizeConfig.screenwidth * 0.038,
                             ),
-                          ],
-                        ),
+                          ),
+                          Text(
+                            "\৳${dataa["after-offer-price"]}",
+                            style: TextStyle(
+                                fontSize: SizeConfig.screenwidth * 0.042,
+                                color: Colors.blue),
+                          ),
+                        ],
                       ),
                     ),
-                  );
-                },
-              );
-            } else if (snapshot.hasError) {
-              return Center(
-                  child: CircularProgressIndicator(
-                backgroundColor: Colors.orange,
-              ));
-            }
+                  ),
+                );
+              },
+            );
+          } else if (snapshot.hasError) {
             return Center(
                 child: CircularProgressIndicator(
-              backgroundColor: Colors.orange,
-            ));
-          },
-        ),
+                  backgroundColor: Colors.orange,
+                ));
+          }
+          return Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.orange,
+              ));
+        },
+      ),
       ),
     );
   }
