@@ -90,7 +90,9 @@ Widget HorizontalProductsList(String collectionName) {
               );
             },
           );
-        } else if (snapshot.hasError) {
+        }
+
+        else if (snapshot.hasError) {
           return Center(
               child: CircularProgressIndicator(
             backgroundColor: Colors.orange,

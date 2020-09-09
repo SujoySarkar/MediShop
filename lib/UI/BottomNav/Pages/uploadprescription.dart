@@ -8,9 +8,13 @@ import 'package:location/location.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:medishop/ResponsiveDesign/sizeconfig.dart';
+import 'package:medishop/UI/BottomNav/bottomnavcontroller.dart';
 import 'package:medishop/UI/CustomWidgets/custombutton.dart';
 import 'package:medishop/UI/CustomWidgets/textboxtitle.dart';
 import 'package:intl/intl.dart';
+import 'package:medishop/logic/login.dart';
+import 'package:medishop/logic/uploadprescriptiondata.dart';
+import 'package:provider/provider.dart';
 
 class UploadPrescription extends StatefulWidget {
   @override
@@ -20,6 +24,7 @@ class UploadPrescription extends StatefulWidget {
 class _UploadPrescriptionState extends State<UploadPrescription> {
   //  Sizebox height
   double sizeboxheightvalue = SizeConfig.screenwidth * 0.015;
+  final _formkey = GlobalKey<FormState>();
 
   // tex editing controller
   TextEditingController namecontroller = TextEditingController();
@@ -79,7 +84,6 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
       print(e.message);
     }
   }
-
   var urlcameraimagetwo;
   var urlgalleryimagetwo;
   Future ChooseFromCameraTwo() async {
@@ -105,7 +109,6 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
       print(e.message);
     }
   }
-
   Future ChooseFromGalleryTwo() async {
     final pickedFile = await ImagePicker.pickImage(source: ImageSource.gallery);
     setState(() {
@@ -129,7 +132,6 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
       print(e.message);
     }
   }
-
   LocationData myLocation;
   getUserLocation() async {
     //call this async method from whereever you need
@@ -160,7 +162,6 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
     locationcontroller.text = ('${first.featureName},${first.subAdminArea}');
     return first;
   }
-
   // save data in cloud firestore
   void savetodatabase(){
     var dbTimekey=new DateTime.now();
@@ -187,6 +188,10 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
 
   @override
   Widget build(BuildContext context) {
+
+    final providerdataforprescription = Provider.of<UploadPrescriptionData>(context);
+    final providerdata = Provider.of<UserLogin>(context);
+
     return Scaffold(
       body: SafeArea(
           child: Padding(
@@ -366,93 +371,71 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
               SizedBox(
                 height: sizeboxheightvalue,
               ),
-              Container(
-                height: SizeConfig.screenheight / 15,
-                width: SizeConfig.screenwidth,
-                decoration:
-                    BoxDecoration(border: Border.all(color: Color(0xFF01BAFF))),
-                child: Padding(
-                  padding: EdgeInsets.only(
-                      left: SizeConfig.screenwidth * 0.03,
-                      right: SizeConfig.screenwidth * 0.03),
-                  child: TextField(
-                    controller: namecontroller,
-                    style: TextStyle(
-                      fontFamily: "Segoe UI",
-                      fontWeight: FontWeight.w600,
-                      fontSize: SizeConfig.screenwidth * 0.045,
-                      color: Color(0xff000000),
-                    ),
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintStyle: TextStyle(
-                        fontFamily: "Segoe UI",
-                        fontWeight: FontWeight.w600,
-                        fontSize: SizeConfig.screenwidth * 0.045,
-                        color: Colors.black38,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: sizeboxheightvalue,
-              ),
-              TitleText("Enter phone number"),
-              SizedBox(
-                height: sizeboxheightvalue,
-              ),
-              Container(
-                height: SizeConfig.screenheight / 15,
-                width: SizeConfig.screenwidth,
-                decoration:
-                    BoxDecoration(border: Border.all(color: Color(0xFF01BAFF))),
-                child: Padding(
-                  padding: EdgeInsets.only(
-                      left: SizeConfig.screenwidth * 0.03,
-                      right: SizeConfig.screenwidth * 0.03),
-                  child: TextField(
-                    controller: phonenumbercontroller,
-                    keyboardType: TextInputType.number,
-                    style: TextStyle(
-                      fontFamily: "Segoe UI",
-                      fontWeight: FontWeight.w600,
-                      fontSize: SizeConfig.screenwidth * 0.045,
-                      color: Color(0xff000000),
-                    ),
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintStyle: TextStyle(
-                        fontFamily: "Segoe UI",
-                        fontWeight: FontWeight.w600,
-                        fontSize: SizeConfig.screenwidth * 0.045,
-                        color: Colors.black38,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: sizeboxheightvalue,
-              ),
-              TitleText("Select or enter your area"),
-              SizedBox(
-                height: sizeboxheightvalue,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+              // text field started
+
+              Form(
+                key: _formkey,
+                child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Container(
                     height: SizeConfig.screenheight / 15,
-                    width: SizeConfig.screenwidth / 1.5,
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Color(0xFF01BAFF))),
+                    width: SizeConfig.screenwidth,
+                    decoration:
+                    BoxDecoration(border: Border.all(color: Colors.green)),
                     child: Padding(
                       padding: EdgeInsets.only(
                           left: SizeConfig.screenwidth * 0.03,
                           right: SizeConfig.screenwidth * 0.03),
-                      child: TextField(
-                        controller: locationcontroller,
+                      child: TextFormField(
+                        validator: (value){
+                          if(value.isEmpty){
+                            return "Enter Your Full Name";
+                          }
+                        },
+                        controller: namecontroller,
+                        style: TextStyle(
+                          fontFamily: "Segoe UI",
+                          fontWeight: FontWeight.w600,
+                          fontSize: SizeConfig.screenwidth * 0.045,
+                          color: Color(0xff000000),
+                        ),
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintStyle: TextStyle(
+                            fontFamily: "Segoe UI",
+                            fontWeight: FontWeight.w600,
+                            fontSize: SizeConfig.screenwidth * 0.045,
+                            color: Colors.black38,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: sizeboxheightvalue,
+                  ),
+                  TitleText("Enter phone number"),
+                  SizedBox(
+                    height: sizeboxheightvalue,
+                  ),
+                  Container(
+                    height: SizeConfig.screenheight / 15,
+                    width: SizeConfig.screenwidth,
+                    decoration:
+                    BoxDecoration(border: Border.all(color: Colors.green)),
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          left: SizeConfig.screenwidth * 0.03,
+                          right: SizeConfig.screenwidth * 0.03),
+                      child: TextFormField(
+                        validator: (value){
+                          if(value.length<11){
+                            return "Enter Correct Number";
+                          }
+                        },
+                        controller: phonenumbercontroller,
                         keyboardType: TextInputType.number,
                         style: TextStyle(
                           fontFamily: "Segoe UI",
@@ -472,27 +455,111 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
                       ),
                     ),
                   ),
-                  Container(
-                    height: SizeConfig.screenheight / 20,
-                    width: SizeConfig.screenwidth * 0.2,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                    ),
-                    child: Material(
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                      color: Colors.green,
-                      child: InkWell(
-                        onTap: () {
-                          getUserLocation();
-                        },
-                        splashColor: Colors.red,
-                        child: Center(
-                          child: Text(
-                            "Select",
+                  SizedBox(
+                    height: sizeboxheightvalue,
+                  ),
+                  TitleText("Select or enter your area"),
+                  SizedBox(
+                    height: sizeboxheightvalue,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                        height: SizeConfig.screenheight / 15,
+                        width: SizeConfig.screenwidth / 1.5,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.green)),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              left: SizeConfig.screenwidth * 0.03,
+                              right: SizeConfig.screenwidth * 0.03),
+                          child: TextFormField(
+                            controller: locationcontroller,
+                            keyboardType: TextInputType.number,
                             style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: SizeConfig.screenwidth * 0.04),
+                              fontFamily: "Segoe UI",
+                              fontWeight: FontWeight.w600,
+                              fontSize: SizeConfig.screenwidth * 0.045,
+                              color: Color(0xff000000),
+                            ),
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintStyle: TextStyle(
+                                fontFamily: "Segoe UI",
+                                fontWeight: FontWeight.w600,
+                                fontSize: SizeConfig.screenwidth * 0.045,
+                                color: Colors.black38,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: SizeConfig.screenheight / 20,
+                        width: SizeConfig.screenwidth * 0.2,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                        ),
+                        child: Material(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                          color: Colors.green,
+                          child: InkWell(
+                            onTap: () {
+                              getUserLocation();
+                            },
+                            splashColor: Colors.red,
+                            child: Center(
+                              child: Text(
+                                "Select",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: SizeConfig.screenwidth * 0.04),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: sizeboxheightvalue,
+                  ),
+                  TitleText("Latitude & Longitude"),
+                  SizedBox(
+                    height: sizeboxheightvalue,
+                  ),
+                  Container(
+                    height: SizeConfig.screenheight / 15,
+                    width: SizeConfig.screenwidth / 1.5,
+                    decoration:
+                    BoxDecoration(border: Border.all(color: Colors.green)),
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          left: SizeConfig.screenwidth * 0.03,
+                          right: SizeConfig.screenwidth * 0.03),
+                      child: TextFormField(
+                        validator: (value){
+                          if(value.isEmpty){
+                            return "Click On Select Button";
+                          }
+                        },
+                        controller: latloncontroller,
+                        keyboardType: TextInputType.number,
+                        style: TextStyle(
+                          fontFamily: "Segoe UI",
+                          fontWeight: FontWeight.w600,
+                          fontSize: SizeConfig.screenwidth * 0.045,
+                          color: Color(0xff000000),
+                        ),
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintStyle: TextStyle(
+                            fontFamily: "Segoe UI",
+                            fontWeight: FontWeight.w600,
+                            fontSize: SizeConfig.screenwidth * 0.045,
+                            color: Colors.black38,
                           ),
                         ),
                       ),
@@ -500,48 +567,37 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
                   ),
                 ],
               ),
-              SizedBox(
-                height: sizeboxheightvalue,
               ),
-              TitleText("Exact Location"),
-              SizedBox(
-                height: sizeboxheightvalue,
-              ),
-              Container(
-                height: SizeConfig.screenheight / 15,
-                width: SizeConfig.screenwidth / 1.5,
-                decoration:
-                    BoxDecoration(border: Border.all(color: Color(0xFF01BAFF))),
-                child: Padding(
-                  padding: EdgeInsets.only(
-                      left: SizeConfig.screenwidth * 0.03,
-                      right: SizeConfig.screenwidth * 0.03),
-                  child: TextField(
-                    controller: latloncontroller,
-                    keyboardType: TextInputType.number,
-                    style: TextStyle(
-                      fontFamily: "Segoe UI",
-                      fontWeight: FontWeight.w600,
-                      fontSize: SizeConfig.screenwidth * 0.045,
-                      color: Color(0xff000000),
-                    ),
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintStyle: TextStyle(
-                        fontFamily: "Segoe UI",
-                        fontWeight: FontWeight.w600,
-                        fontSize: SizeConfig.screenwidth * 0.045,
-                        color: Colors.black38,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+
+
+              // textfield finish
+
+
               SizedBox(
                 height: SizeConfig.screenwidth * 0.15,
               ),
               CustomButton("Continue", () {
-                savetodatabase();
+
+                if(_formkey.currentState.validate()){
+
+                 providerdataforprescription.savePrescriptiontodatabase(urlcameraimage, urlgalleryimage, urlcameraimagetwo, urlgalleryimagetwo, namecontroller, locationcontroller, latloncontroller, phonenumbercontroller, providerdata.userid);
+                  showDialog(context:context,
+                    barrierDismissible: false,
+                    builder: (context){
+                    return AlertDialog(
+                      title: Text("Uploadded Successfully !"),
+                      content: Text("We will call you as quick as possible to confirm the order."),
+                      actions: <Widget>[
+                        RaisedButton(onPressed: (){
+                          Navigator.pop(context);
+                          Navigator.push(context, CupertinoPageRoute(builder: (context)=>BottomNavController()));
+                        },child: Text("Ok"),)
+                      ],
+                    );
+                    }
+                  );
+                }
+
               })
             ],
           ),

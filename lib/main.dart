@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:medishop/UI/SplashScreen/splash.dart';
 import 'package:medishop/logic/login.dart';
+import 'package:medishop/logic/uploadprescriptiondata.dart';
 import 'package:provider/provider.dart';
 
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
+    MultiProvider(
 
-      create: (Context)=> UserLogin(),
+      providers: [
+        ChangeNotifierProvider(create: (_) => UserLogin()),
+        ChangeNotifierProvider(create: (_) => UploadPrescriptionData()),
+      ],
+
       child: MyApp(),
     ),
   );

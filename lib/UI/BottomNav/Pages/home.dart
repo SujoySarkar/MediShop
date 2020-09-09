@@ -47,6 +47,14 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      endDrawer: Drawer(),
+      appBar: AppBar(
+        backgroundColor: Colors.green,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        title: Text("MediShop BD"),
+        centerTitle: true,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
