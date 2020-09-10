@@ -6,6 +6,7 @@ import 'package:flutter_carousel_slider/carousel_slider_indicators.dart';
 import 'package:flutter_carousel_slider/carousel_slider_transforms.dart';
 import 'package:medishop/ResponsiveDesign/sizeconfig.dart';
 import 'package:medishop/UI/BottomNav/Pages/orderbycall.dart';
+import 'package:medishop/UI/BottomNav/Pages/shoppingcart.dart';
 import 'package:medishop/UI/BottomNav/Pages/uploadprescription.dart';
 import 'package:medishop/UI/CustomWidgets/customItem.dart';
 import 'package:medishop/UI/CustomWidgets/fetchcategory.dart';
@@ -21,6 +22,8 @@ import 'package:medishop/UI/SeeAll/categorysix.dart';
 import 'package:medishop/UI/SeeAll/categoryten.dart';
 import 'package:medishop/UI/SeeAll/categorythree.dart';
 import 'package:medishop/UI/SeeAll/categorytwo.dart';
+import 'package:medishop/logic/login.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -46,6 +49,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final providerdata = Provider.of<UserLogin>(context);
+
     return Scaffold(
       endDrawer: Drawer(),
       appBar: AppBar(
@@ -149,13 +154,64 @@ class _HomePageState extends State<HomePage> {
                             SizedBox(
                               width: SizeConfig.screenwidth * 0.015,
                             ),
-                            CustomItem(
-                              SizeConfig.screenwidth * 0.2,
-                              SizeConfig.screenwidth * 0.35,
-                              Icons.add_comment,
-                              "For Shop Owner",
-                              () {},
+                            Stack(
+                              alignment: Alignment.topCenter,
+
+                              children: <Widget>[
+                                Container(
+                                    height:SizeConfig.screenwidth * 0.2,
+                                    width:SizeConfig.screenwidth * 0.35,
+                                    decoration: BoxDecoration(
+
+                                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                                    ),
+                                    child: Material(
+                                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                                        color: Colors.green,
+                                        child: InkWell(
+                                          onTap: (){
+                                            Navigator.push(context, CupertinoPageRoute(builder: (context)=>ShoppingCart()));
+                                          },
+                                          splashColor: Colors.white,
+                                          child: Center(
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: <Widget>[
+                                                Icon(Icons.add_shopping_cart,color: Colors.white,size: 25,),
+                                                SizedBox(height: SizeConfig.screenwidth*0.01,),
+
+                                                Text(
+                                                  "Added To Cart",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: SizeConfig.screenwidth*0.030),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ))),
+                                Positioned(
+
+                                    child: StreamBuilder(
+                                      stream: Firestore.instance
+                                          .collection("Checkout")
+                                          .document(providerdata.userid)
+                                          .collection("cartlist")
+                                          .snapshots(),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.hasData) {
+
+                                          return CircleAvatar(backgroundColor: Colors.red,radius: SizeConfig.screenheight*0.009,child: Text("${snapshot.data.documents.length}",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: SizeConfig.screenheight*0.015),));
+                                        }
+                                        return Center(
+                                        );
+                                      },
+                                    )),
+                              ],
                             ),
+
                           ],
                         ),
                       ),

@@ -242,7 +242,7 @@ class _DetailsState extends State<Details> {
                               heroTag: "btn1",
                               onPressed: () {
                                 setState(() {
-                                  quantity++;
+                                  value==false?quantity++:"";
                                 },);
                               },
                               child: Text(
@@ -259,7 +259,7 @@ class _DetailsState extends State<Details> {
                               onPressed: () {
                                 if(quantity!=1){
                                   setState(() {
-                                    quantity--;
+                                    value==false?quantity--:"";
                                   });
                                 }
 
@@ -325,8 +325,10 @@ class _DetailsState extends State<Details> {
                             {
                               'product-name': widget.data['Product-name'],
                               'Product-image': widget.data['Product-image'],
-                              'after-offer-price': quantity*widget.data['after-offer-price'],
+                              'quantity*after-offer-price': quantity*widget.data['after-offer-price'],
                               'document-id': widget.data.reference,
+                              'quantity':quantity,
+                              'after-offer-price':widget.data['after-offer-price']
 
                             },
                           ): Fluttertoast.showToast(msg: "Already Added",toastLength: Toast.LENGTH_SHORT,gravity: ToastGravity.BOTTOM);;

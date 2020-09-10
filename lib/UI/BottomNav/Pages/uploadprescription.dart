@@ -186,6 +186,12 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
   }
 
 
+@override
+  void initState() {
+    getUserLocation();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -476,7 +482,7 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
                               right: SizeConfig.screenwidth * 0.03),
                           child: TextFormField(
                             controller: locationcontroller,
-                            keyboardType: TextInputType.number,
+                            keyboardType: TextInputType.text,
                             style: TextStyle(
                               fontFamily: "Segoe UI",
                               fontWeight: FontWeight.w600,
@@ -546,7 +552,7 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
                           }
                         },
                         controller: latloncontroller,
-                        keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.text,
                         style: TextStyle(
                           fontFamily: "Segoe UI",
                           fontWeight: FontWeight.w600,
