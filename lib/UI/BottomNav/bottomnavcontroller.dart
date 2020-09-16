@@ -6,8 +6,6 @@ import 'package:medishop/UI/BottomNav/Pages/orderbycall.dart';
 import 'package:medishop/UI/BottomNav/Pages/uploadprescription.dart';
 
 
-import 'Pages/profile.dart';
-
 class BottomNavController extends StatefulWidget {
   @override
   _BottomNavControllerState createState() => _BottomNavControllerState();
@@ -22,7 +20,7 @@ class _BottomNavControllerState extends State<BottomNavController> {
     OrderByCallPage(),
     UploadPrescription(),
     HelpPage(),
-    Profile(),
+
 
   ];
   
@@ -56,10 +54,7 @@ class _BottomNavControllerState extends State<BottomNavController> {
               color: Colors.white,
             ),
             Icon(Icons.help,color: Colors.white,),
-            Icon(
-              Icons.perm_identity,
-              color: Colors.white,
-            ),
+
           ],
           onTap: (value) {
             setState(() {

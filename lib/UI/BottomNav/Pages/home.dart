@@ -5,7 +5,6 @@ import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:flutter_carousel_slider/carousel_slider_indicators.dart';
 import 'package:flutter_carousel_slider/carousel_slider_transforms.dart';
 import 'package:medishop/ResponsiveDesign/sizeconfig.dart';
-import 'package:medishop/UI/BottomNav/Pages/orderbycall.dart';
 import 'package:medishop/UI/BottomNav/Pages/shoppingcart.dart';
 import 'package:medishop/UI/BottomNav/Pages/uploadprescription.dart';
 import 'package:medishop/UI/CustomWidgets/customItem.dart';
@@ -24,6 +23,8 @@ import 'package:medishop/UI/SeeAll/categorythree.dart';
 import 'package:medishop/UI/SeeAll/categorytwo.dart';
 import 'package:medishop/logic/login.dart';
 import 'package:provider/provider.dart';
+
+import 'medicinerequest.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -103,7 +104,8 @@ class _HomePageState extends State<HomePage> {
                             indicatorRadius: 4),
                         itemCount: snapshot.data.length,
                       );
-                    } else if (snapshot.hasError) {
+                    }
+                    else if (snapshot.hasError) {
                       return Center(
                           child: CircularProgressIndicator(
                         backgroundColor: Colors.orange,
@@ -130,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                               SizeConfig.screenwidth * 0.2,
                               SizeConfig.screenwidth * 0.35,
                               Icons.add_circle,
-                              "Uplooad Prescription",
+                              "Upload Prescription",
                               () {
                                 Navigator.push(
                                     context,
@@ -148,7 +150,7 @@ class _HomePageState extends State<HomePage> {
                               Icons.phone_in_talk,
                               "Medicine Request",
                               () {
-                                // Navigator.push(context, CupertinoPageRoute(builder: (context) => OrderByCallPage()));
+                                Navigator.push(context, CupertinoPageRoute(builder: (context) => MedicineRequest()));
                               },
                             ),
                             SizedBox(

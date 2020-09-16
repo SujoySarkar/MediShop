@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -11,7 +10,6 @@ import 'package:medishop/ResponsiveDesign/sizeconfig.dart';
 import 'package:medishop/UI/BottomNav/bottomnavcontroller.dart';
 import 'package:medishop/UI/CustomWidgets/custombutton.dart';
 import 'package:medishop/UI/CustomWidgets/textboxtitle.dart';
-import 'package:intl/intl.dart';
 import 'package:medishop/logic/login.dart';
 import 'package:medishop/logic/uploadprescriptiondata.dart';
 import 'package:provider/provider.dart';
@@ -98,7 +96,7 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
     try {
 
       // Upload image to firebase.
-      final StorageReference postimageref = FirebaseStorage.instance.ref().child("requestuttara");
+      final StorageReference postimageref = FirebaseStorage.instance.ref().child("uploadprescriptionimage");
       var timekey= DateTime.now();
       final StorageUploadTask uploadTask = postimageref.child(timekey.toString()+".jpg").putFile(image);
       var imageurl =await(await uploadTask.onComplete).ref.getDownloadURL();
@@ -121,7 +119,7 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
     try {
 
       // Upload image to firebase.
-      final StorageReference postimageref = FirebaseStorage.instance.ref().child("requestuttara");
+      final StorageReference postimageref = FirebaseStorage.instance.ref().child("uploadprescriptionimage");
       var timekey= DateTime.now();
       final StorageUploadTask uploadTask = postimageref.child(timekey.toString()+".jpg").putFile(image);
       var imageurl =await(await uploadTask.onComplete).ref.getDownloadURL();
@@ -162,29 +160,6 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
     locationcontroller.text = ('${first.featureName},${first.subAdminArea}');
     return first;
   }
-  // save data in cloud firestore
-  void savetodatabase(){
-    var dbTimekey=new DateTime.now();
-    var formatDate=new DateFormat('MMM d,yyyy');
-    var formatTime=new DateFormat('EEEE hh:mm,aaa');
-
-    String date=formatDate.format(dbTimekey);
-    String time=formatTime.format(dbTimekey);
-
-    Firestore.instance.collection("Order-Requests").document().setData({
-      "prescription-camere-img":urlcameraimage,
-      "prescription-gallery-img":urlgalleryimage,
-      "prescription-camere-img2":urlcameraimagetwo,
-      "prescription-gallery-img2":urlgalleryimagetwo,
-      "user-name":namecontroller.text,
-      "user-address":locationcontroller.text,
-      "user-lat&long":latloncontroller.text,
-      "Phonenumber":phonenumbercontroller.text,
-      "order-date":date,
-      "order-Time":time
-    });
-  }
-
 
 @override
   void initState() {

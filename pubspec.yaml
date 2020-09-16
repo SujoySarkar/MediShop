@@ -38,6 +38,7 @@ dependencies:
   geocoder: ^0.2.1
   location: ^3.0.2
   fluttertoast: ^7.0.4
+  intl: ^0.16.1
 
 
 
