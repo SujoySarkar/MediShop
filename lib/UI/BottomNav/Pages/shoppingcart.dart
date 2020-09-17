@@ -70,7 +70,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
         .snapshots()
         .listen((snapshot) {
       double tempTotal = snapshot.documents
-          .fold(0, (tot, doc) => tot + doc.data['after-offer-price']);
+          .fold(0, (tot, doc) => tot + doc.data['after-offer-price']*doc.data['quantity']);
       setState(() {
         total = tempTotal;
       });

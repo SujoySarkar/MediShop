@@ -4,9 +4,7 @@ import 'package:medishop/UI/SplashScreen/splash.dart';
 import 'package:medishop/logic/login.dart';
 import 'package:medishop/logic/uploadprescriptiondata.dart';
 import 'package:provider/provider.dart';
-
 import 'logic/uploadmedicinerequest.dart';
-
 
 void main() {
   runApp(

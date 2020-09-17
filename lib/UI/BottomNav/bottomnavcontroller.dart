@@ -32,6 +32,7 @@ class _BottomNavControllerState extends State<BottomNavController> {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
+
         bottomNavigationBar: CurvedNavigationBar(
           height: MediaQuery.of(context).size.height / 13,
           index: 0,

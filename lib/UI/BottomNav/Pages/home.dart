@@ -5,12 +5,14 @@ import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:flutter_carousel_slider/carousel_slider_indicators.dart';
 import 'package:flutter_carousel_slider/carousel_slider_transforms.dart';
 import 'package:medishop/ResponsiveDesign/sizeconfig.dart';
+import 'package:medishop/UI/BottomNav/Pages/help.dart';
 import 'package:medishop/UI/BottomNav/Pages/shoppingcart.dart';
 import 'package:medishop/UI/BottomNav/Pages/uploadprescription.dart';
 import 'package:medishop/UI/CustomWidgets/customItem.dart';
 import 'package:medishop/UI/CustomWidgets/fetchcategory.dart';
 import 'package:medishop/UI/CustomWidgets/productlisthorizontal.dart';
 import 'package:medishop/UI/CustomWidgets/textwidget.dart';
+import 'package:medishop/UI/DrawerPages/contactwithus.dart';
 import 'package:medishop/UI/SeeAll/categoryeight.dart';
 import 'package:medishop/UI/SeeAll/categoryfive.dart';
 import 'package:medishop/UI/SeeAll/categoryfour.dart';
@@ -23,6 +25,7 @@ import 'package:medishop/UI/SeeAll/categorythree.dart';
 import 'package:medishop/UI/SeeAll/categorytwo.dart';
 import 'package:medishop/logic/login.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'medicinerequest.dart';
 
@@ -40,6 +43,14 @@ class _HomePageState extends State<HomePage> {
         await firestore.collection("Carousel-Images").getDocuments();
     return qn.documents;
   }
+  LaunchURL() async {
+    const url = 'https://m.facebook.com/Medishopbd-116340780212279/';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   void initState() {
@@ -53,7 +64,91 @@ class _HomePageState extends State<HomePage> {
     final providerdata = Provider.of<UserLogin>(context);
 
     return Scaffold(
-      endDrawer: Drawer(),
+
+      endDrawer: Drawer(
+
+        child: SafeArea(
+          child: Container(
+
+            child: Padding(
+              padding:  EdgeInsets.all(SizeConfig.screenheight*0.02),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      height: SizeConfig.screenheight / 10,
+                      width: SizeConfig.screenwidth / 1.5,
+                      child: Image.asset(
+                        "images/splashlogo.png",
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    SizedBox(height: SizeConfig.screenheight*0.03,),
+                    // contact
+                    Card(
+                      elevation: 6,
+                        child: ListTile(
+                      title: Text("Contact"),
+                          leading: Icon(Icons.contact_phone),
+                          onTap: (){
+                        Navigator.push(context, CupertinoPageRoute(builder: (context)=>ContactWithUs()));
+                          },
+                    )),
+                    // help
+                    Card(
+                        elevation: 6,
+
+                        child: ListTile(
+                      title: Text("Help"),
+                          leading: Icon(Icons.help),
+                          onTap: (){
+                            Navigator.push(context, CupertinoPageRoute(builder: (context)=>HelpPage()));
+                          },
+                    )),
+                    // privacy
+                    Card(
+                        elevation: 6,
+
+                        child: ListTile(
+                      title: Text("Privacy"),
+                          leading: Icon(Icons.block),
+                    )),
+                    // rate
+                    Card(
+
+                        elevation: 6,
+
+                        child: ListTile(
+                      title: Text("Rate Us"),
+                          leading: Icon(Icons.star),
+                    )),
+                    // share
+                    Card(
+                        elevation: 6,
+
+                        child: ListTile(
+                      title: Text("Share"),
+                          leading: Icon(Icons.share),
+                    )),
+                    // facebook
+                    Card(
+                        elevation: 6,
+
+                        child: ListTile(
+                      title: Text("Facebook Page"),
+                          leading: Text(" f",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.blue,fontSize: SizeConfig.screenheight*0.042),),
+                          onTap: (){
+                          LaunchURL();
+                          },
+                    )),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: Colors.green,
         elevation: 0,
@@ -88,7 +183,7 @@ class _HomePageState extends State<HomePage> {
                                         SizeConfig.screenwidth * 0.06)),
                                 child: Image.network(
                                   sliderimages['img'],
-                                  fit: BoxFit.cover,
+                                  fit: BoxFit.fill,
                                 ),
                               ),
                             ),
